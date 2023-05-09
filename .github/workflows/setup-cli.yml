@@ -1,0 +1,31 @@
+name: 'Setup Terraform'
+
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  run-setup-guance-cli:
+    name: 'Guance CLI Run'
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3.5.2
+
+    - name: Setup Guance
+      uses: ./
+      with:
+        version: 0.0.2
+
+    - name: Print Guance Version
+      shell: bash
+      run: guance version

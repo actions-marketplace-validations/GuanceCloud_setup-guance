@@ -1,0 +1,14 @@
+name: 'Guance Cloud - Setup CLI'
+description: 'Sets up Guance CLI in your GitHub Actions workflow.'
+author: 'Guance Cloud, Inc.'
+inputs:
+  version:
+    description: 'The version of Guance CLI to install.'
+    default: 'latest'
+    required: false
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
+branding:
+  icon: 'terminal'
+  color: 'purple'
