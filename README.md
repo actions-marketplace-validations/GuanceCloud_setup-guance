@@ -13,9 +13,9 @@ A specific version of Terraform CLI can be installed:
 
 ```yaml
 steps:
-- uses: hashicorp/setup-guance@v2
+- uses: GuanceCloud/setup-guance@v2
   with:
-    version: 1.1.7
+    version: 0.0.2
 ```
 
 ## Inputs
@@ -28,8 +28,8 @@ The action supports the following inputs:
 
 This action is inspired by follow projects:
 
-1. [hashicorp/setup-terraform], The GitHub action of Hashicorp Terraform.
-1. [actions/setup-go], The GitHub action of Golang.
+1. [hashicorp/setup-terraform](https://github.com/hashicorp/setup-terraform), The GitHub action of Hashicorp Terraform.
+1. [actions/setup-go](https://github.com/actions/setup-go), The GitHub action of Golang.
 
 ## License
 

@@ -10,7 +10,6 @@ const os = __nccwpck_require__(2037);
 // External
 const core = __nccwpck_require__(2186);
 const tc = __nccwpck_require__(7784);
-const io = __nccwpck_require__(7436);
 
 const binaryName = 'guance';
 
@@ -39,18 +38,9 @@ async function downloadCLI (url) {
   core.debug(`Downloading Guance CLI from ${url}`);
   const pathToCLIZip = await tc.downloadTool(url);
 
-  let pathToCLI = '';
-
   core.debug('Extracting Guance CLI zip file');
-  if (os.platform().startsWith('win')) {
-    core.debug(`Guance CLI Download Path is ${pathToCLIZip}`);
-    const fixedPathToCLIZip = `${pathToCLIZip}.zip`;
-    io.mv(pathToCLIZip, fixedPathToCLIZip);
-    core.debug(`Moved download to ${fixedPathToCLIZip}`);
-    pathToCLI = await tc.extractZip(fixedPathToCLIZip);
-  } else {
-    pathToCLI = await tc.extractZip(pathToCLIZip);
-  }
+
+  const pathToCLI = await tc.extractTar(pathToCLIZip);
 
   core.debug(`Guance CLI path is ${pathToCLI}.`);
 
@@ -62,7 +52,7 @@ async function downloadCLI (url) {
 }
 
 function buildUrl (release) {
-  return `https://github.com/GuanceCloud/guance-cli/releases/download/v0.0.2/${binaryName}_${release.version}_${release.os}_${release.arch}.tar.gz`;
+  return `https://github.com/GuanceCloud/guance-cli/releases/download/v${release.version}/${binaryName}_${release.version}_${release.os}_${release.arch}.tar.gz`;
 }
 
 async function run () {
@@ -71,7 +61,7 @@ async function run () {
     const arch = getArch();
     const version = core.getInput('version');
 
-    core.debug(`Getting build for Terraform version ${version}: ${platform} ${arch}`);
+    core.debug(`Getting build for Guance CLI version ${version}: ${platform} ${arch}`);
 
     const release = {
       os: platform,

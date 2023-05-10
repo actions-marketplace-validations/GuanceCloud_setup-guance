@@ -18,7 +18,7 @@ const setup = require('../lib/setup-guance');
 // core.error = jest
 //   .fn(console.error);
 
-describe('Setup Terraform', () => {
+describe('Setup Guance CLI', () => {
   const HOME = process.env.HOME;
   const APPDATA = process.env.APPDATA;
 
@@ -33,7 +33,7 @@ describe('Setup Terraform', () => {
     process.env.APPDATA = APPDATA;
   });
 
-  test('gets specific version and adds token and hostname on linux, amd64', async () => {
+  test('gets specific version', async () => {
     const version = '0.1.1';
 
     core.getInput = jest
@@ -42,9 +42,9 @@ describe('Setup Terraform', () => {
 
     tc.downloadTool = jest
       .fn()
-      .mockReturnValueOnce('file.zip');
+      .mockReturnValueOnce('file.tar.gz');
 
-    tc.extractZip = jest
+    tc.extractTar = jest
       .fn()
       .mockReturnValueOnce('file');
 
@@ -55,38 +55,6 @@ describe('Setup Terraform', () => {
     os.arch = jest
       .fn()
       .mockReturnValue('amd64');
-
-    const versionObj = await setup();
-    expect(versionObj.version).toEqual('0.1.1');
-
-    // downloaded CLI has been added to path
-    expect(core.addPath).toHaveBeenCalled();
-  });
-
-  test('gets specific version and adds token and hostname on windows, 386', async () => {
-    const version = '0.1.1';
-
-    core.getInput = jest
-      .fn()
-      .mockReturnValueOnce(version);
-
-    tc.downloadTool = jest
-      .fn()
-      .mockReturnValueOnce('file.zip');
-
-    io.mv = jest.fn();
-
-    tc.extractZip = jest
-      .fn()
-      .mockReturnValueOnce('file');
-
-    os.platform = jest
-      .fn()
-      .mockReturnValue('win32');
-
-    os.arch = jest
-      .fn()
-      .mockReturnValue('386');
 
     const versionObj = await setup();
     expect(versionObj.version).toEqual('0.1.1');
@@ -120,7 +88,7 @@ describe('Setup Terraform', () => {
       .fn()
       .mockReturnValueOnce('file.zip');
 
-    tc.extractZip = jest
+    tc.extractTar = jest
       .fn()
       .mockReturnValueOnce('file');
 
@@ -150,7 +118,7 @@ describe('Setup Terraform', () => {
       .fn()
       .mockReturnValueOnce('');
 
-    tc.extractZip = jest
+    tc.extractTar = jest
       .fn()
       .mockReturnValueOnce('');
 
