@@ -4,11 +4,10 @@ author: 'Guance Cloud, Inc.'
 inputs:
   version:
     description: 'The version of Guance CLI to install.'
-    default: 'latest'
-    required: false
+    required: true
 runs:
   using: 'node16'
   main: 'dist/index.js'
 branding:
   icon: 'terminal'
-  color: 'purple'
+  color: 'orange'

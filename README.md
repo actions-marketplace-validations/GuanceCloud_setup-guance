@@ -13,7 +13,7 @@ A specific version of Terraform CLI can be installed:
 
 ```yaml
 steps:
-- uses: GuanceCloud/setup-guance@v2
+- uses: GuanceCloud/setup-guance@v1
   with:
     version: 0.0.2
 ```
